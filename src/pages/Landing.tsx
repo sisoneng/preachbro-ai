@@ -32,10 +32,10 @@ const Landing = () => {
 
         {/* Hero Content */}
         <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-glass">
+          {/* <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-glass">
             <Zap className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium text-primary">Powered by Advanced AI</span>
-          </div>
+          </div> */}
           
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
             Transform Your{" "}
@@ -52,17 +52,17 @@ const Landing = () => {
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center pt-4">
             <Button asChild size="lg" className="bg-primary hover:bg-primary-dark text-white shadow-glow group text-base md:text-lg px-6 md:px-8 w-full sm:w-auto">
               <Link to="/register" className="flex items-center gap-2 justify-center">
-                Start Free Today
+                Start Today
                 <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="border-border hover:bg-card text-base md:text-lg px-6 md:px-8 w-full sm:w-auto">
+            {/* <Button asChild variant="outline" size="lg" className="border-border hover:bg-card text-base md:text-lg px-6 md:px-8 w-full sm:w-auto">
               <Link to="/login">Watch Demo</Link>
-            </Button>
+            </Button> */}
           </div>
 
           {/* Social Proof */}
-          <div className="pt-6 md:pt-8 flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-8 text-xs md:text-sm text-muted-foreground">
+          {/* <div className="pt-6 md:pt-8 flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-8 text-xs md:text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-success" />
               <span>No credit card required</span>
@@ -71,7 +71,7 @@ const Landing = () => {
               <CheckCircle2 className="w-4 h-4 text-success" />
               <span>Free forever plan</span>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -191,7 +191,7 @@ const Landing = () => {
               <span className="text-base md:text-lg font-bold text-gradient">PreachBro</span>
             </div>
             <p className="text-xs md:text-sm text-muted-foreground text-center">
-              © 2024 PreachBro. Empowering ministry through AI.
+              © 2025 PreachBro
             </p>
           </div>
         </div>
