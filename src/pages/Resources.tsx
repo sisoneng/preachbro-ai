@@ -58,10 +58,10 @@ const Resources = () => {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <Tabs defaultValue="quotes" className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="quotes">Quotes</TabsTrigger>
-            <TabsTrigger value="commentaries">Commentaries</TabsTrigger>
-            <TabsTrigger value="stories">Stories</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-3 h-auto">
+            <TabsTrigger value="quotes" className="text-xs md:text-base py-2 md:py-2.5">Quotes</TabsTrigger>
+            <TabsTrigger value="commentaries" className="text-xs md:text-base py-2 md:py-2.5">Commentaries</TabsTrigger>
+            <TabsTrigger value="stories" className="text-xs md:text-base py-2 md:py-2.5">Stories</TabsTrigger>
           </TabsList>
 
           <TabsContent value="quotes" className="space-y-4 mt-6">

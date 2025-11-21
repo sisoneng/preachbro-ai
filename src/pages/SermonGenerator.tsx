@@ -52,9 +52,9 @@ const SermonGenerator = () => {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <Tabs defaultValue="generate" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="generate">Generate New</TabsTrigger>
-            <TabsTrigger value="enhance">Enhance Existing</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 h-auto">
+            <TabsTrigger value="generate" className="text-sm md:text-base py-2 md:py-2.5">Generate New</TabsTrigger>
+            <TabsTrigger value="enhance" className="text-sm md:text-base py-2 md:py-2.5">Enhance Existing</TabsTrigger>
           </TabsList>
 
           <TabsContent value="generate" className="space-y-6">
