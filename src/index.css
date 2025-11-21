@@ -71,6 +71,13 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
+  @layer base {
+  /* ...the rest of your base...*/
+  #lovable-badge {
+    display: none !important;
+  }
+  }
+  
   .light {
     /* Light Theme */
     --background: 0 0% 100%;
