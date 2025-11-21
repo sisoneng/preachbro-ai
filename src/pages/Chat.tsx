@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Send } from "lucide-react";
+import { ArrowLeft, Send, Paperclip, X } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useToast } from "@/hooks/use-toast";
+import { Badge } from "@/components/ui/badge";
 
 interface Message {
   id: number;
   role: "user" | "assistant";
+  content: string;
+}
+
+interface UploadedFile {
+  name: string;
   content: string;
 }
 
@@ -16,10 +23,48 @@ const Chat = () => {
     {
       id: 1,
       role: "assistant",
-      content: "Hello! I'm your AI theological companion. I can discuss scripture, theology, and help with sermon preparation. How can I assist you today?",
+      content: "Hello! I'm your AI theological companion. I can discuss scripture, theology, and help with sermon preparation. Upload text files to teach me about your preferred theological resources!",
     },
   ]);
   const [input, setInput] = useState("");
+  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { toast } = useToast();
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files) return;
+
+    Array.from(files).forEach((file) => {
+      if (!file.name.endsWith('.txt')) {
+        toast({
+          title: "Invalid file type",
+          description: "Please upload .txt files only",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const content = event.target?.result as string;
+        setUploadedFiles((prev) => [...prev, { name: file.name, content }]);
+        toast({
+          title: "File uploaded",
+          description: `${file.name} has been uploaded successfully`,
+        });
+      };
+      reader.readAsText(file);
+    });
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
+  const removeFile = (fileName: string) => {
+    setUploadedFiles((prev) => prev.filter((f) => f.name !== fileName));
+  };
 
   const handleSend = () => {
     if (!input.trim()) return;
@@ -30,10 +75,14 @@ const Chat = () => {
       content: input,
     };
 
+    const contextInfo = uploadedFiles.length > 0 
+      ? `\n\nContext from uploaded files: ${uploadedFiles.map(f => f.name).join(", ")}`
+      : "";
+
     const assistantMessage: Message = {
       id: messages.length + 2,
       role: "assistant",
-      content: "This is a demo response. In production, this would be powered by AI to provide theological insights and guidance based on your preferences.",
+      content: `This is a demo response. In production, AI would analyze your question along with the content from ${uploadedFiles.length} uploaded file(s) to provide personalized theological insights.${contextInfo}`,
     };
 
     setMessages([...messages, userMessage, assistantMessage]);
@@ -81,7 +130,38 @@ const Chat = () => {
       {/* Input */}
       <div className="border-t border-border bg-card/50 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4 max-w-3xl">
+          {uploadedFiles.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-3">
+              {uploadedFiles.map((file) => (
+                <Badge key={file.name} variant="secondary" className="flex items-center gap-1 px-2 py-1">
+                  <span className="text-xs">{file.name}</span>
+                  <button
+                    onClick={() => removeFile(file.name)}
+                    className="hover:text-destructive transition-colors"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                </Badge>
+              ))}
+            </div>
+          )}
           <div className="flex gap-2">
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".txt"
+              multiple
+              onChange={handleFileUpload}
+              className="hidden"
+            />
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => fileInputRef.current?.click()}
+              className="shrink-0"
+            >
+              <Paperclip className="w-5 h-5" />
+            </Button>
             <Input
               placeholder="Ask about theology, scripture, or sermon ideas..."
               value={input}
